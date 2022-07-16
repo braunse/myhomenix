@@ -1,0 +1,23 @@
+font:
+  normal: 
+    family: SauceCodePro Nerd Font Mono
+  size: 10
+
+key_bindings:
+  - { key: Up,          mods: Super,              chars: "\x02\x1b\x5b\x41" }
+  - { key: Down,        mods: Super,              chars: "\x02\x1b\x5b\x42" }
+  - { key: Right,       mods: Super,              chars: "\x02\x1b\x5b\x43" }
+  - { key: Left,        mods: Super,              chars: "\x02\x1b\x5b\x44" }
+  - { key: Right,       mods: Super|Shift,        chars: "\x02\x1b\x5b\x31\x3b\x33\x43" }
+  - { key: Left,        mods: Super|Shift,        chars: "\x02\x1b\x5b\x31\x3b\x33\x44" }
+  - { key: Up,          mods: Super|Control,      chars: "\x02\x1b\x5b\x31\x3b\x32\x41" }
+  - { key: Down,        mods: Super|Control,      chars: "\x02\x1b\x5b\x31\x3b\x32\x42" }
+  - { key: Right,       mods: Super|Control,      chars: "\x02\x1b\x5b\x31\x3b\x32\x43" }
+  - { key: Left,        mods: Super|Control,      chars: "\x02\x1b\x5b\x31\x3b\x32\x44" }
+  - { key: Up,          mods: Super|Control|Alt,  chars: "\x02\x1b\x5b\x31\x3b\x32\x41" }
+  - { key: Down,        mods: Super|Control|Alt,  chars: "\x02\x1b\x5b\x31\x3b\x32\x42" }
+  - { key: Right,       mods: Super|Control|Alt,  chars: "\x02\x1b\x5b\x31\x3b\x32\x43" }
+  - { key: Left,        mods: Super|Control|Alt,  chars: "\x02\x1b\x5b\x31\x3b\x32\x44" }
+
+hrzngrzn:
+  12

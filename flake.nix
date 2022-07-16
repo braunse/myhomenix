@@ -1,0 +1,88 @@
+{
+  description = "My Home Environment";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    flake-utils.url = "github:numtide/flake-utils";
+
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    fenix.url = "github:nix-community/fenix";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    vim-night-owl = { url = "github:haishanh/night-owl.vim"; flake = false; };
+  };
+
+  outputs = ins@{ self, nixpkgs, flake-utils, home-manager, ... }:
+    let
+      system = "x86_64-linux";
+      username = "seb";
+    in
+    let
+      sysdeps =
+        flake-utils.lib.eachDefaultSystem
+          (system:
+            let
+              pkgs = nixpkgs.legacyPackages.${system};
+              ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_13;
+            in
+            {
+              packages.ocaml-lsp = ocamlPackages.callPackage ./pkgs/ocaml/lsp.nix { };
+            });
+      sysindeps = {
+        homeConfigurations."ostwdev" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+
+          modules = [
+            ({ config, pkgs, ... }: {
+              imports = [
+                (import ./home/basic.nix ins)
+                ./home/neovim.nix
+                ./home/tmux.nix
+                ./home/utils.nix
+                ./home/dev/nix.nix
+                ./home/dev/vcs.nix
+                ./home/dev/rust.nix
+                ./home/dev/haskell.nix
+                ./home/dev/frontend.nix
+              ];
+
+              config = {
+                home.username = username;
+                home.homeDirectory = "/home/${username}";
+                home.stateVersion = "21.11";
+                mine.vcs.enableFossil = true;
+                mine.dev.frontend.enable = true;
+                mine.dev.haskell.enable = true;
+                mine.dev.nix.enable = true;
+                mine.dev.rust = {
+                  enable = true;
+                  components = [
+                    "cargo"
+                    "clippy"
+                    "rustc"
+                    "rust-std"
+                    "rustfmt"
+                    "rust-docs"
+                    "miri"
+                    "rust-analyzer-preview"
+                    "llvm-tools-preview"
+                    "rust-src"
+                  ];
+                  targetComponents = {
+                    "wasm32-unknown-unknown" = [ "rust-std" ];
+                    "wasm32-wasi" = [ "rust-std" ];
+                    "x86_64-pc-windows-gnu" = [ "rust-std" ];
+                    "x86_64-pc-windows-msvc" = [ "rust-std" ];
+                  };
+                };
+              };
+            })
+          ];
+        };
+      };
+    in
+    sysdeps // sysindeps;
+}
