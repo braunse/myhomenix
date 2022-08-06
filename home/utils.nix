@@ -5,6 +5,7 @@
     xsv
     ripgrep
     fd
+    topgrade
   ];
 
   programs.bat.enable = true;

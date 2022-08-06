@@ -13,6 +13,7 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
 
     vim-night-owl = { url = "github:haishanh/night-owl.vim"; flake = false; };
+    coc-dlang = { url = "github:vushu/coc-dlang"; flake = false; };
   };
 
   outputs = ins@{ self, nixpkgs, flake-utils, home-manager, ... }:
@@ -42,6 +43,8 @@
                 ./home/neovim.nix
                 ./home/tmux.nix
                 ./home/utils.nix
+                ./home/dev/dlang.nix
+                ./home/dev/nim.nix
                 ./home/dev/nix.nix
                 ./home/dev/vcs.nix
                 ./home/dev/rust.nix
@@ -54,8 +57,11 @@
                 home.homeDirectory = "/home/${username}";
                 home.stateVersion = "21.11";
                 mine.vcs.enableFossil = true;
+                mine.dev.dlang.enable = true;
                 mine.dev.frontend.enable = true;
                 mine.dev.haskell.enable = true;
+                mine.dev.nim.enable = true;
+                mine.dev.nim.enableLsp = true;
                 mine.dev.nix.enable = true;
                 mine.dev.rust = {
                   enable = true;

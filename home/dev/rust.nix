@@ -85,7 +85,19 @@ in
     }
 
     (mkIf cfg.enable {
-      home.packages = [ cfg.toolchainPackage ];
+      home.packages = [
+        cfg.toolchainPackage
+        pkgs.cargo-update
+        pkgs.cargo-feature
+        pkgs.cargo-whatfeatures
+        pkgs.cargo-deny
+        pkgs.cargo-fuzz
+        pkgs.cargo-insta
+        pkgs.cargo-outdated
+        pkgs.cargo-crev
+        pkgs.cargo-udeps
+        pkgs.cargo-update
+      ];
 
       programs.neovim = {
         plugins = with pkgs.vimPlugins; [ coc-rust-analyzer ];
