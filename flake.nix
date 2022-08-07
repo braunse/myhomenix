@@ -20,6 +20,55 @@
     let
       system = "x86_64-linux";
       username = "seb";
+      defaultConfig = { ... }: {
+        imports = [
+          (import ./home/basic.nix ins)
+          ./home/neovim.nix
+          ./home/tmux.nix
+          ./home/utils.nix
+          ./home/dev/dlang.nix
+          ./home/dev/nim.nix
+          ./home/dev/nix.nix
+          ./home/dev/vcs.nix
+          ./home/dev/rust.nix
+          ./home/dev/haskell.nix
+          ./home/dev/frontend.nix
+        ];
+
+        config = {
+          home.username = username;
+          home.homeDirectory = "/home/${username}";
+          home.stateVersion = "21.11";
+          mine.vcs.enableFossil = true;
+          mine.dev.dlang.enable = true;
+          mine.dev.frontend.enable = true;
+          mine.dev.haskell.enable = true;
+          mine.dev.nim.enable = true;
+          mine.dev.nim.enableLsp = true;
+          mine.dev.nix.enable = true;
+          mine.dev.rust = {
+            enable = true;
+            components = [
+              "cargo"
+              "clippy"
+              "rustc"
+              "rust-std"
+              "rustfmt"
+              "rust-docs"
+              "miri"
+              "rust-analyzer-preview"
+              "llvm-tools-preview"
+              "rust-src"
+            ];
+            targetComponents = {
+              "wasm32-unknown-unknown" = [ "rust-std" ];
+              "wasm32-wasi" = [ "rust-std" ];
+              "x86_64-pc-windows-gnu" = [ "rust-std" ];
+              "x86_64-pc-windows-msvc" = [ "rust-std" ];
+            };
+          };
+        };
+      };
     in
     let
       sysdeps =
@@ -39,52 +88,8 @@
           modules = [
             ({ config, pkgs, ... }: {
               imports = [
-                (import ./home/basic.nix ins)
-                ./home/neovim.nix
-                ./home/tmux.nix
-                ./home/utils.nix
-                ./home/dev/dlang.nix
-                ./home/dev/nim.nix
-                ./home/dev/nix.nix
-                ./home/dev/vcs.nix
-                ./home/dev/rust.nix
-                ./home/dev/haskell.nix
-                ./home/dev/frontend.nix
+                defaultConfig
               ];
-
-              config = {
-                home.username = username;
-                home.homeDirectory = "/home/${username}";
-                home.stateVersion = "21.11";
-                mine.vcs.enableFossil = true;
-                mine.dev.dlang.enable = true;
-                mine.dev.frontend.enable = true;
-                mine.dev.haskell.enable = true;
-                mine.dev.nim.enable = true;
-                mine.dev.nim.enableLsp = true;
-                mine.dev.nix.enable = true;
-                mine.dev.rust = {
-                  enable = true;
-                  components = [
-                    "cargo"
-                    "clippy"
-                    "rustc"
-                    "rust-std"
-                    "rustfmt"
-                    "rust-docs"
-                    "miri"
-                    "rust-analyzer-preview"
-                    "llvm-tools-preview"
-                    "rust-src"
-                  ];
-                  targetComponents = {
-                    "wasm32-unknown-unknown" = [ "rust-std" ];
-                    "wasm32-wasi" = [ "rust-std" ];
-                    "x86_64-pc-windows-gnu" = [ "rust-std" ];
-                    "x86_64-pc-windows-msvc" = [ "rust-std" ];
-                  };
-                };
-              };
             })
           ];
         };
