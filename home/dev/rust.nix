@@ -87,16 +87,30 @@ in
     (mkIf cfg.enable {
       home.packages = [
         cfg.toolchainPackage
-        pkgs.cargo-update
-        pkgs.cargo-feature
-        pkgs.cargo-whatfeatures
-        pkgs.cargo-deny
-        pkgs.cargo-fuzz
-        pkgs.cargo-insta
-        pkgs.cargo-outdated
+        pkgs.cargo-about
+        pkgs.cargo-asm
         pkgs.cargo-crev
+        pkgs.cargo-criterion
+        pkgs.cargo-cross
+        pkgs.cargo-deny
+        pkgs.cargo-depgraph
+        pkgs.cargo-edit
+        pkgs.cargo-feature
+        pkgs.cargo-fuzz
+        pkgs.cargo-geiger
+        pkgs.cargo-insta
+        pkgs.cargo-license
+        pkgs.cargo-outdated
+        pkgs.cargo-readme
+        pkgs.cargo-tarpaulin
         pkgs.cargo-udeps
         pkgs.cargo-update
+        pkgs.cargo-valgrind
+        pkgs.cargo-web
+        pkgs.cargo-whatfeatures
+        pkgs.cargo-wipe
+        pkgs.cargo-xbuild
+
       ];
 
       programs.neovim = {
