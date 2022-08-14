@@ -9,9 +9,10 @@ let
 
   renderGroup = i: g:
     let
-      name = if isString (g.group or null)
-      then "name = ${renderString g.group}, \n${i}  "
-      else "";
+      name =
+        if isString (g.group or null)
+        then "name = ${renderString g.group}, \n${i}  "
+        else "";
       mappings = removeAttrs g [ "group" ];
       renderedMappings = concatMapStringsSep ",\n${i}  "
         (n: "${renderName n} = ${render "${i}  " g.${n}}")
