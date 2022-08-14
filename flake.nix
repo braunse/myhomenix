@@ -34,12 +34,14 @@
           ./home/dev/golang.nix
           ./home/dev/haskell.nix
           ./home/dev/frontend.nix
+          ./home/k8s.nix
         ];
 
         config = {
           home.username = username;
           home.homeDirectory = "/home/${username}";
           home.stateVersion = "21.11";
+          mine.k8s.enable = true;
           mine.vcs.enableFossil = true;
           mine.dev.dlang.enable = true;
           mine.dev.frontend.enable = true;
