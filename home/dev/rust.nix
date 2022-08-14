@@ -102,6 +102,7 @@ in
         pkgs.cargo-license
         pkgs.cargo-outdated
         pkgs.cargo-readme
+        pkgs.cargo-sort
         pkgs.cargo-tarpaulin
         pkgs.cargo-udeps
         pkgs.cargo-update
@@ -110,7 +111,6 @@ in
         pkgs.cargo-whatfeatures
         pkgs.cargo-wipe
         pkgs.cargo-xbuild
-
       ];
 
       programs.neovim = {
