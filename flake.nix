@@ -31,6 +31,7 @@
           ./home/dev/nix.nix
           ./home/dev/vcs.nix
           ./home/dev/rust.nix
+          ./home/dev/golang.nix
           ./home/dev/haskell.nix
           ./home/dev/frontend.nix
         ];
@@ -42,6 +43,7 @@
           mine.vcs.enableFossil = true;
           mine.dev.dlang.enable = true;
           mine.dev.frontend.enable = true;
+          mine.dev.golang.enable = true;
           mine.dev.haskell.enable = true;
           mine.dev.nim.enable = true;
           mine.dev.nim.enableLsp = true;
