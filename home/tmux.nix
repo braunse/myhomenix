@@ -39,6 +39,11 @@
 
       bind-key r source-file "~/.config/tmux/tmux.conf"\; display "Reloaded!"
 
+      bind-key -n M-Right select-pane -R
+      bind-key -n M-Left select-pane -L
+      bind-key -n S-M-Right next-window
+      bind-key -n S-M-Left previous-window
+
       set -g focus-events on
       set -g mouse on
       set -g set-titles on
