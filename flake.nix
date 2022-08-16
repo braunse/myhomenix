@@ -82,11 +82,8 @@
           (system:
             let
               pkgs = nixpkgs.legacyPackages.${system};
-              ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_13;
             in
-            {
-              packages.ocaml-lsp = ocamlPackages.callPackage ./pkgs/ocaml/lsp.nix { };
-            });
+            { });
       sysindeps = {
         homeConfigurations."ostwdev" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};

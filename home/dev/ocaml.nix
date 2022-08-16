@@ -48,6 +48,7 @@ in
         cfg.compilerPkg
         cfg.dunePkg
         cfg.opamPkg
+        pkgs.ocamlformat
       ] ++ (map (name: cfg.packageSet.${name}) cfg.packages);
 
       programs.neovim.coc.settings.languageserver.ocaml-lsp = {
