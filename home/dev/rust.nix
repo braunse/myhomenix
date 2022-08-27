@@ -113,6 +113,8 @@ in
         pkgs.cargo-xbuild
       ];
 
+      mine.emacs.modules.lang.rust = ["lsp"];
+
       programs.neovim = {
         plugins = with pkgs.vimPlugins; [ coc-rust-analyzer ];
         coc.settings = {

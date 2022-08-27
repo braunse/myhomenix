@@ -12,17 +12,21 @@
     fenix.url = "github:nix-community/fenix";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
     vim-night-owl = { url = "github:haishanh/night-owl.vim"; flake = false; };
     coc-dlang = { url = "github:vushu/coc-dlang"; flake = false; };
   };
 
-  outputs = ins@{ self, nixpkgs, flake-utils, home-manager, ... }:
+  outputs = ins@{ self, nixpkgs, flake-utils, home-manager, nix-doom-emacs, ... }:
     let
       system = "x86_64-linux";
       username = "seb";
       defaultConfig = { ... }: {
         imports = [
           (import ./home/basic.nix ins)
+          nix-doom-emacs.hmModule
+          ./home/emacs.nix
           ./home/neovim.nix
           ./home/tmux.nix
           ./home/utils.nix
@@ -42,6 +46,8 @@
           home.username = username;
           home.homeDirectory = "/home/${username}";
           home.stateVersion = "21.11";
+          mine.emacs.enable = true;
+          mine.neovim.enable = false;
           mine.k8s.enable = true;
           mine.vcs.enableFossil = true;
           mine.dev.dlang.enable = true;
@@ -73,6 +79,12 @@
               "x86_64-pc-windows-msvc" = [ "rust-std" ];
             };
           };
+          programs.doom-emacs.extraConfig = ''
+            (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 12 :weight 'semi-light))
+            (setq doom-theme 'doom-one)
+            (setq display-line-numbers-type t)
+            (setq org-directory "~/org/")
+          '';
         };
       };
     in

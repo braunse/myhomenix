@@ -33,6 +33,11 @@ in
         pkgs.cabal2nix
       ];
 
+      mine.emacs.modules.lang.haskell = ["lsp"];
+      programs.doom-emacs.extraConfig = ''
+        (pushnew! exec-path "${pkgs.haskell-language-server}/bin")
+      '';
+
       programs.neovim = {
         coc.settings.languageserver.haskell = {
           command = "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper";

@@ -25,6 +25,18 @@ in
         cfg.package
       ];
 
+      mine.emacs.modules.lang.go = ["lsp" "tree-sitter"];
+      programs.doom-emacs.extraConfig = ''
+        (pushnew! exec-path "${pkgs.gopls}/bin")
+      '';
+
+      programs.neovim.extraConfig = ''
+        lua <<EOL
+          require("lspconfig").gopls.setup {
+          }
+        EOL
+      '';
+
       programs.neovim.coc.settings.languageserver.gopls = {
         command = "${pkgs.gopls}/bin/gopls";
         rootPatterns = [ "go.mod" ];

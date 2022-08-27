@@ -51,8 +51,13 @@ in
         pkgs.ocamlformat
       ] ++ (map (name: cfg.packageSet.${name}) cfg.packages);
 
+      mine.emacs.modules.lang.ocaml = ["lsp" "tree-sitter"];
+      programs.doom-emacs.extraConfig = ''
+        (pushnew! exec-path "${cfg.lspServerPkg}/bin")
+      '';
+
       programs.neovim.coc.settings.languageserver.ocaml-lsp = {
-        command = "${cfg.lspServerPkg}/bin/ocaml-lsp";
+        command = "${cfg.lspServerPkg}/bin/ocamllsp";
         filetypes = [ "ocaml" "reason" ];
       };
     })
