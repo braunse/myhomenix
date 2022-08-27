@@ -39,6 +39,7 @@
           ./home/dev/haskell.nix
           ./home/dev/frontend.nix
           ./home/dev/ocaml.nix
+          ./home/dev/scala.nix
           ./home/k8s.nix
         ];
 
@@ -58,6 +59,7 @@
           mine.dev.nim.enableLsp = true;
           mine.dev.nix.enable = true;
           mine.dev.ocaml.enable = true;
+          mine.dev.scala.enable = true;
           mine.dev.rust = {
             enable = true;
             components = [
