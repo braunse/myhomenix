@@ -52,14 +52,16 @@ let
   nkeymap = {
     a = {
       group = "Action";
-      c = { plug = "coc-codeaction-cursor"; label = "Near Cursor (LSP)"; };
-      f = { cmd = "CocCommand editor.action.formatDocument"; label = "Format (LSP)"; };
-      h = { cmd = "call CocActionAsync('doHover')"; label = "Hover (LSP)"; };
-      i = { cmd = "CocCommand editor.action.organizeImports"; label = "Organize Imports (LSP)"; };
-      l = { plug = "coc-codeaction-line"; label = "On Line (LSP)"; };
-      o = { plug = "coc-codelens-action"; label = "Code Lens (LSP)"; };
-      q = { plug = "coc-fix-current"; label = "Quick Fix (LSP)"; };
-      x = { cmd = "CocList commands"; label = "List LSP Commands"; };
+      c = { cmd = "lua vim.lsp.buf.code_action()"; label = "Near Cursor (LSP)"; };
+      h = { cmd = "lua vim.lsp.buf.hover()"; label = "Hover (LSP)"; };
+      #c = { plug = "coc-codeaction-cursor"; label = "Near Cursor (LSP)"; };
+      #f = { cmd = "CocCommand editor.action.formatDocument"; label = "Format (LSP)"; };
+      #h = { cmd = "call CocActionAsync('doHover')"; label = "Hover (LSP)"; };
+      #i = { cmd = "CocCommand editor.action.organizeImports"; label = "Organize Imports (LSP)"; };
+      #l = { plug = "coc-codeaction-line"; label = "On Line (LSP)"; };
+      #o = { plug = "coc-codelens-action"; label = "Code Lens (LSP)"; };
+      #q = { plug = "coc-fix-current"; label = "Quick Fix (LSP)"; };
+      #x = { cmd = "CocList commands"; label = "List LSP Commands"; };
     };
     b = {
       group = "Buffers";
