@@ -27,7 +27,6 @@
           (import ./home/basic.nix ins)
           nix-doom-emacs.hmModule
           ./home/emacs.nix
-          ./home/neovim.nix
           ./home/tmux.nix
           ./home/utils.nix
           ./home/dev/dlang.nix
@@ -40,6 +39,8 @@
           ./home/dev/frontend.nix
           ./home/dev/ocaml.nix
           ./home/dev/scala.nix
+          ./home/dev/purescript.nix
+          ./home/dev/elixir.nix
           ./home/k8s.nix
         ];
 
@@ -48,7 +49,6 @@
           home.homeDirectory = "/home/${username}";
           home.stateVersion = "21.11";
           mine.emacs.enable = true;
-          mine.neovim.enable = false;
           mine.k8s.enable = true;
           mine.vcs.enableFossil = true;
           mine.dev.dlang.enable = true;
@@ -60,6 +60,8 @@
           mine.dev.nix.enable = true;
           mine.dev.ocaml.enable = true;
           mine.dev.scala.enable = true;
+          mine.dev.purescript.enable = true;
+          mine.dev.elixir.enable = true;
           mine.dev.rust = {
             enable = true;
             components = [

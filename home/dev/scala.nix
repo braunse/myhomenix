@@ -29,6 +29,12 @@ in
     mine.emacs.modules.lang.scala = ["lsp" "tree-sitter"];
     programs.doom-emacs.extraConfig = ''
       (pushnew! exec-path "${pkgs.metals}/bin" "${pkgs.coursier}/bin" "${pkgs.bloop}/bin")
+      (setq lsp-metals-server-command "${pkgs.metals}/bin/metals")
+      (setq lsp-metals-java-home "${javaPackage}")
+      (setq lsp-metals-sbt-script "${pkgs.sbt}/bin/sbt")
+      (setq lsp-metals-gradle-script "${pkgs.gradle}/bin/gradle")
+      (setq lsp-metals-maven-script "${pkgs.maven}/bin/mvn")
+      (setq lsp-metals-mill-script "${pkgs.mill}/bin/mill")
     '';
 
     programs.neovim = {

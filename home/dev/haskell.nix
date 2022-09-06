@@ -4,6 +4,10 @@ with lib;
 
 let
   cfg = config.mine.dev.haskell;
+
+  hls = pkgs.haskell-language-server.override {
+    supportedGhcVersions = ["8107" "902" "924"];
+  };
 in
 {
   options = {
@@ -31,16 +35,18 @@ in
         cfg.ghc.package
         pkgs.cabal-install
         pkgs.cabal2nix
+        pkgs.hpack
+        hls
       ];
 
       mine.emacs.modules.lang.haskell = ["lsp"];
       programs.doom-emacs.extraConfig = ''
-        (pushnew! exec-path "${pkgs.haskell-language-server}/bin")
+        (pushnew! exec-path "${hls}/bin")
       '';
 
       programs.neovim = {
         coc.settings.languageserver.haskell = {
-          command = "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper";
+          command = "${hls}/bin/haskell-language-server-wrapper";
           args = [ "--lsp" ];
           rootPatterns = [ "stack.yaml" "cabal.project" "*.cabal" "package.yaml" "hie.yaml" ];
           filetypes = [ "haskell" "lhaskell" ];
