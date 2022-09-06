@@ -20,7 +20,7 @@ in
         pkgs.nimlsp
       ];
 
-      mine.emacs.modules.lang.nim = [];
+      mine.emacs.modules.lang.nim = [ ];
 
       programs.neovim = {
         plugins = [ pkgs.vimPlugins.nim-vim ];

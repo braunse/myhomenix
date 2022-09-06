@@ -26,7 +26,7 @@ in
       javaPackage
     ];
 
-    mine.emacs.modules.lang.scala = ["lsp" "tree-sitter"];
+    mine.emacs.modules.lang.scala = [ "lsp" "tree-sitter" ];
     programs.doom-emacs.extraConfig = ''
       (pushnew! exec-path "${pkgs.metals}/bin" "${pkgs.coursier}/bin" "${pkgs.bloop}/bin")
       (setq lsp-metals-server-command "${pkgs.metals}/bin/metals")

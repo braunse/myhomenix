@@ -6,7 +6,7 @@ let
   cfg = config.mine.dev.haskell;
 
   hls = pkgs.haskell-language-server.override {
-    supportedGhcVersions = ["8107" "902" "924"];
+    supportedGhcVersions = cfg.hls.supportedVersions;
   };
 in
 {
@@ -16,11 +16,16 @@ in
 
       ghcVersion = mkOption {
         type = types.str;
-        default = "ghc8107";
+        default = "ghc924";
       };
 
       ghc.package = mkOption {
         type = types.package;
+      };
+
+      hls.supportedVersions = mkOption {
+        type = types.listOf types.str;
+        default = [ "8107" "902" "924" ];
       };
     };
   };
@@ -36,10 +41,11 @@ in
         pkgs.cabal-install
         pkgs.cabal2nix
         pkgs.hpack
+        pkgs.stack
         hls
       ];
 
-      mine.emacs.modules.lang.haskell = ["lsp"];
+      mine.emacs.modules.lang.haskell = [ "lsp" ];
       programs.doom-emacs.extraConfig = ''
         (pushnew! exec-path "${hls}/bin")
       '';
@@ -56,6 +62,5 @@ in
         };
       };
     })
-
   ];
 }

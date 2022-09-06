@@ -25,7 +25,7 @@ in
         cfg.package
       ];
 
-      mine.emacs.modules.lang.go = ["lsp" "tree-sitter"];
+      mine.emacs.modules.lang.go = [ "lsp" "tree-sitter" ];
       programs.doom-emacs.extraConfig = ''
         (pushnew! exec-path "${pkgs.gopls}/bin")
       '';

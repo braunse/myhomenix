@@ -51,7 +51,7 @@ in
         pkgs.ocamlformat
       ] ++ (map (name: cfg.packageSet.${name}) cfg.packages);
 
-      mine.emacs.modules.lang.ocaml = ["lsp" "tree-sitter"];
+      mine.emacs.modules.lang.ocaml = [ "lsp" "tree-sitter" ];
       programs.doom-emacs.extraConfig = ''
         (pushnew! exec-path "${cfg.lspServerPkg}/bin")
       '';

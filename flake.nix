@@ -14,6 +14,9 @@
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
+
+    dub2nix = { url = "github:lionello/dub2nix"; flake = false; };
+
     vim-night-owl = { url = "github:haishanh/night-owl.vim"; flake = false; };
     coc-dlang = { url = "github:vushu/coc-dlang"; flake = false; };
   };
@@ -99,7 +102,9 @@
             let
               pkgs = nixpkgs.legacyPackages.${system};
             in
-            { });
+            {
+              packages.dub2nix = pkgs.callPackage ins.dub2nix {};
+            });
       sysindeps = {
         homeConfigurations."ostwdev" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};

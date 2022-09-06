@@ -15,8 +15,8 @@ in
         nixpkgs-fmt
       ];
 
-      mine.emacs.modules.tools.tree-sitter = [];
-      mine.emacs.modules.lang.nix = ["tree-sitter"];
+      mine.emacs.modules.tools.tree-sitter = [ ];
+      mine.emacs.modules.lang.nix = [ "tree-sitter" ];
 
       programs.neovim = {
         plugins = with pkgs.vimPlugins; [

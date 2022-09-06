@@ -71,6 +71,9 @@ in
       enable = true;
       doomPrivateDir = doomDir;
       emacsPackagesOverlay = self: super: { };
+      extraConfig = ''
+        (pushnew! exec-path "${pkgs.yaml-language-server}/bin")
+      '';
     };
 
     mine.emacs.modules = {
