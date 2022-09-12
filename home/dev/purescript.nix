@@ -20,9 +20,16 @@ in
         pkgs.spago
         pkgs.pulp
         pkgs.psc-package
+        pkgs.dhall
+        pkgs.purescript-psa
       ];
 
-      mine.emacs.modules.lang.purescript = ["lsp"];
+      programs.doom-emacs.extraConfig = ''
+        (pushnew! exec-path "${pkgs.nodePackages.purescript-language-server}/bin")
+      '';
+
+      mine.emacs.modules.lang.dhall = [ ];
+      mine.emacs.modules.lang.purescript = [ "lsp" ];
     })
   ];
 }

@@ -14,6 +14,8 @@ in
     mine.dev.haskell = {
       enable = mkEnableOption "Haskell";
 
+      useSystemTools = mkEnableOption "Use system-installed Haskell";
+
       ghcVersion = mkOption {
         type = types.str;
         default = "ghc924";
@@ -33,10 +35,13 @@ in
   config = mkMerge [
     {
       mine.dev.haskell.ghc.package = mkDefault pkgs.haskell.compiler.${cfg.ghcVersion};
+      programs.zsh.initExtra = ''
+        if [ -d "$HOME/.ghcup" ]; then PATH="$HOME/.ghcup/bin:$PATH"; fi
+      '';
     }
 
     (mkIf cfg.enable {
-      home.packages = [
+      home.packages = mkIf (!cfg.useSystemTools) [
         cfg.ghc.package
         pkgs.cabal-install
         pkgs.cabal2nix
@@ -46,11 +51,12 @@ in
       ];
 
       mine.emacs.modules.lang.haskell = [ "lsp" ];
-      programs.doom-emacs.extraConfig = ''
+      programs.doom-emacs.extraConfig = mkIf (!cfg.useSystemTools) ''
         (pushnew! exec-path "${hls}/bin")
+        (setq lsp-haskell-server-path "${hls}/bin/haskell-language-server-wrapper")
       '';
 
-      programs.neovim = {
+      programs.neovim = mkIf (!cfg.useSystemTools) {
         coc.settings.languageserver.haskell = {
           command = "${hls}/bin/haskell-language-server-wrapper";
           args = [ "--lsp" ];

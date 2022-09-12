@@ -21,6 +21,7 @@ in
       mine.dev.dlang.enableLdc = mkDefault true;
 
       home.packages = [
+        config.lib.mine.inputs.self.packages.${pkgs.system}.dub2nix
         pkgs.dub
       ] ++ (optionals cfg.enableLdc [ pkgs.ldc ])
       ++ (optionals cfg.enableGdc [ pkgs.gdc ])

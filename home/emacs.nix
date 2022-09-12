@@ -34,17 +34,19 @@ let
       args =
         concatMapStringsSep "\n\n       "
           (section:
-            let moduleNames = attrNames cfg.modules.${section};
-                moduleEntries = concatMapStringsSep "\n       "
-              (moduleName:
-                let moduleFlags = cfg.modules.${section}.${moduleName};
-                in if moduleFlags != null && moduleFlags != [ ] then
-                  "(${moduleName} +${concatStringsSep " +" moduleFlags})"
-                else
-                  moduleName
-              )
-              moduleNames;
-    in ":${section}\n       ${moduleEntries}")
+            let
+              moduleNames = attrNames cfg.modules.${section};
+              moduleEntries = concatMapStringsSep "\n       "
+                (moduleName:
+                  let moduleFlags = cfg.modules.${section}.${moduleName};
+                  in if moduleFlags != null && moduleFlags != [ ] then
+                    "(${moduleName} +${concatStringsSep " +" moduleFlags})"
+                  else
+                    moduleName
+                )
+                moduleNames;
+            in
+            ":${section}\n       ${moduleEntries}")
           sections;
     in
     pkgs.writeText "init.el" "(doom! ${args})";
@@ -72,7 +74,7 @@ in
       doomPrivateDir = doomDir;
       emacsPackagesOverlay = self: super: { };
       extraConfig = ''
-        (pushnew! exec-path "${pkgs.yaml-language-server}/bin")
+        (pushnew! exec-path "${pkgs.yaml-language-server}/bin" "${pkgs.nodePackages.vscode-langservers-extracted}/bin")
       '';
     };
 
@@ -87,13 +89,13 @@ in
         doom-dashboard = [ ];
         doom-quit = [ ];
         hl-todo = [ ];
-        indent-guides = [];
+        indent-guides = [ ];
         ligatures = [ "extra" ];
         modeline = [ ];
         ophints = [ ];
         popup = [ "defaults" ];
         treemacs = [ ];
-        unicode = [];
+        unicode = [ ];
         vc-gutter = [ ];
         vi-tilde-fringe = [ ];
         workspaces = [ ];

@@ -41,6 +41,9 @@ in
       mine.dev.ocaml.dunePkg = mkDefault (cfg.packageSet.dune_3 or cfg.packageSet.dune_2);
       mine.dev.ocaml.opamPkg = mkDefault pkgs.opam;
       mine.dev.ocaml.packages = mkDefault [ "utop" ];
+      programs.zsh.initExtra = ''
+        if [ -r "$HOME/.opam/opam-init/init.zsh" ]; then source "$HOME/.opam/opam-init/init.zsh" >/dev/null 2>/dev/null; fi
+      '';
     }
 
     (mkIf cfg.enable {

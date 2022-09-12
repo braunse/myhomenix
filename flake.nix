@@ -58,6 +58,7 @@
           mine.dev.frontend.enable = true;
           mine.dev.golang.enable = true;
           mine.dev.haskell.enable = true;
+          mine.dev.haskell.useSystemTools = true;
           mine.dev.nim.enable = true;
           mine.dev.nim.enableLsp = true;
           mine.dev.nix.enable = true;
@@ -103,7 +104,7 @@
               pkgs = nixpkgs.legacyPackages.${system};
             in
             {
-              packages.dub2nix = pkgs.callPackage ins.dub2nix {};
+              packages.dub2nix = pkgs.callPackage ins.dub2nix { };
             });
       sysindeps = {
         homeConfigurations."ostwdev" = home-manager.lib.homeManagerConfiguration {

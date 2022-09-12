@@ -29,10 +29,11 @@ in
       beamPkgs.elixir_ls
     ];
 
-    mine.emacs.modules.lang.elixir = ["lsp"];
+    mine.emacs.modules.lang.elixir = [ "lsp" ];
     programs.doom-emacs.extraConfig = ''
-      (setq lsp-elixir-local-server-command "${beamPkgs.elixir_ls}/bin/language_server.sh")
-      (setq lsp-elixir-server-command "${beamPkgs.elixir_ls}/bin/language_server.sh")
+      (pushnew! exec-path "${beamPkgs.elixir_ls}/bin")
+      ;; (setq lsp-elixir-local-server-command "${beamPkgs.elixir_ls}/bin/elixir-ls")
+      ;; (setq lsp-elixir-server-command "${beamPkgs.elixir_ls}/bin/elixir-ls")
     '';
   };
 }

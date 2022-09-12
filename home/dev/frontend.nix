@@ -30,8 +30,15 @@ in
           ++ optional cfg.enableJs coc-tsserver;
       };
 
+      programs.doom-emacs.extraConfig = ''
+        (pushnew! exec-path "${pkgs.nodePackages.typescript-language-server}/bin" "${pkgs.deno}/bin")
+      '';
+
+      mine.emacs.modules.lang.javascript = [ "lsp" "tree-sitter" ];
+      mine.emacs.modules.lang.web = [ "lsp" "tree-sitter" ];
+
       home.packages = with pkgs; [ ]
-        ++ optionals cfg.enableJs [ cfg.nodejs cfg.yarn cfg.pnpm ];
+        ++ optionals cfg.enableJs [ cfg.nodejs cfg.yarn cfg.pnpm pkgs.deno ];
     })
   ];
 }
