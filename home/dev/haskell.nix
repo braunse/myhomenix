@@ -41,14 +41,12 @@ in
     }
 
     (mkIf cfg.enable {
-      home.packages = mkIf (!cfg.useSystemTools) [
+      home.packages = [ pkgs.cabal2nix pkgs.hpack ] ++ (optionals (!cfg.useSystemTools) [
         cfg.ghc.package
         pkgs.cabal-install
-        pkgs.cabal2nix
-        pkgs.hpack
         pkgs.stack
         hls
-      ];
+      ]);
 
       mine.emacs.modules.lang.haskell = [ "lsp" ];
       programs.doom-emacs.extraConfig = mkIf (!cfg.useSystemTools) ''
